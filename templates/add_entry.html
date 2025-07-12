@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+    <section class="entry-form">
+        <div class="form-container">
+            <h2>Add New Journal Entry</h2>
+            <form method="POST" action="" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" id="title" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="content">Content</label>
+                    <textarea id="content" name="content" rows="10" required></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <input type="text" id="location" name="location">
+                    </div>
+                    <div class="form-group">
+                        <label for="mood">Mood</label>
+                        <select id="mood" name="mood">
+                            <option value="Happy">Happy</option>
+                            <option value="Reflective">Reflective</option>
+                            <option value="Excited">Excited</option>
+                            <option value="Challenged">Challenged</option>
+                            <option value="Nostalgic">Nostalgic</option>
+                            <option value="Peaceful">Peaceful</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="image">Upload Image (Optional)</label>
+                    <input type="file" id="image" name="image" accept="image/*">
+                </div>
+                <button type="submit" class="btn">Save Entry</button>
+            </form>
+        </div>
+    </section>
+{% endblock %}

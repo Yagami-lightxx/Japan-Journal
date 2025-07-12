@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+    <section class="entries-header">
+        <h2>My Journal Entries</h2>
+        <a href="{{ url_for('add_entry') }}" class="btn">Add New Entry</a>
+    </section>
+
+    <section class="entries-container">
+        {% if entries %}
+            {% for entry in entries %}
+            <div class="entry-card">
+                {% if entry.image %}
+                <div class="entry-image" style="background-image: url('{{ url_for('static', filename='uploads/' + entry.image) }}')"></div>
+                {% else %}
+                <div class="entry-image" style="background-image: url('{{ url_for('static', filename='images/japan-default.jpg') }}')"></div>
+                {% endif %}
+                <div class="entry-content">
+                    <div class="entry-date">{{ entry.date_posted.strftime('%B %d, %Y') }}</div>
+                    <h3>{{ entry.title }}</h3>
+                    <p>{{ entry.content[:150] }}...</p>
+                    <div class="entry-meta">
+                        <span class="location">{{ entry.location if entry.location else 'Japan' }}</span>
+                        <span class="mood">{{ entry.mood }}</span>
+                    </div>
+                    <a href="{{ url_for('view_entry', entry_id=entry.id) }}" class="read-more">Read Full Entry</a>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="no-entries">
+                <p>You haven't written any journal entries yet.</p>
+                <a href="{{ url_for('add_entry') }}" class="btn">Write Your First Entry</a>
+            </div>
+        {% endif %}
+    </section>
+{% endblock %}

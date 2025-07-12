@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Discover Japan Through My Eyes</h2>
+            <p>A personal journal documenting my internship journey in the Land of the Rising Sun</p>
+            {% if 'user_id' not in session %}
+                <a href="{{ url_for('register') }}" class="btn">Start Your Journey</a>
+            {% else %}
+                <a href="{{ url_for('add_entry') }}" class="btn">Add New Entry</a>
+            {% endif %}
+        </div>
+    </section>
+
+    {% if entries %}
+    <section class="recent-entries">
+        <h3>My Recent Entries</h3>
+        <div class="entry-grid">
+            {% for entry in entries %}
+            <div class="entry-card">
+                <div class="entry-date">{{ entry.date_posted.strftime('%B %d, %Y') }}</div>
+                <h4>{{ entry.title }}</h4>
+                <p>{{ entry.content[:100] }}...</p>
+                <div class="entry-meta">
+                    <span class="location">{{ entry.location }}</span>
+                    <span class="mood">{{ entry.mood }}</span>
+                </div>
+                <a href="{{ url_for('view_entry', entry_id=entry.id) }}" class="read-more">Read More</a>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    <section class="about-journal">
+        <div class="about-content">
+            <h3>About This Journal</h3>
+            <p>This journal documents my professional and cultural experiences during my internship in Japan. Through these entries, I share insights into Japanese work culture, daily life, and the beautiful traditions that make this country unique.</p>
+            <p>Each entry captures moments of learning, challenges overcome, and the gradual understanding of a culture so different from my own.</p>
+        </div>
+        <div class="about-image">
+            <div class="japanese-pattern"></div>
+        </div>
+    </section>
+{% endblock %}

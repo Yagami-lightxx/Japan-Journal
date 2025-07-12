@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+    <section class="single-entry">
+        <div class="entry-header">
+            <h2>{{ entry.title }}</h2>
+            <div class="entry-meta">
+                <span class="date">{{ entry.date_posted.strftime('%B %d, %Y') }}</span>
+                <span class="location">{{ entry.location if entry.location else 'Japan' }}</span>
+                <span class="mood">{{ entry.mood }}</span>
+            </div>
+        </div>
+
+        {% if entry.image %}
+        <div class="entry-image" style="background-image: url('{{ url_for('static', filename='uploads/' + entry.image) }}')"></div>
+        {% else %}
+        <div class="entry-image" style="background-image: url('{{ url_for('static', filename='images/japan-default.jpg') }}')"></div>
+        {% endif %}
+
+        <div class="entry-content">
+            {{ entry.content | replace('\n', '<br>') | safe }}
+        </div>
+
+        <div class="entry-actions">
+            <a href="{{ url_for('view_entries') }}" class="btn">Back to All Entries</a>
+        </div>
+    </section>
+{% endblock %}
